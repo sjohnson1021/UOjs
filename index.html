@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<title>beep</title>
+<script src="jquery.min.js"></script>
+<script src="uo.js"></script>
+<script>
+window.onload = function() {
+	var e;
+	if((e = UO.system.checkBrowser()).length) {
+		UO.system.write('cannot start: {0}', e.join(','));
+	}
+	else
+		UO.system.start();
+};
+</script>
+<style>
+* {
+	cursor: url(cursor.png), pointer;
+}
+body {
+	background-color: #111;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+#canvas {
+	float: left;
+	border: 1px solid #ccc;
+	/*border: 1px solid #666;*/
+}
+#log-container {
+	border: 1px solid #000;
+	padding: 0.5em;
+	font-family: monospace;
+	color: #fff;
+	height: 100%;
+}
+#log-container strong {
+	display: block;
+	overflow: auto;
+	border-bottom: 1px solid #666;
+}
+#log-container strong label {
+	float: right;
+}
+#log { 
+	overflow: auto;
+	height: 90%;
+	display: block;
+}
+.top {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#display {
+	z-index: 0;
+}
+#overlay {
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	opacity: 0.9;
+	background-color: #333;
+	display: none;
+}
+#top-bar {
+	z-index: 200;
+	background-color: #fff;
+	opacity: 0.9;
+}
+</style>
+</head>
+<body>
+	<div id="top-bar" class="top">protip: press [~] for console</div>
+	<div id="display" class="top">
+		<canvas id="canvas" width="800" height="800"></canvas>
+	</div>
+	<div id="overlay" class="top">
+		<div id="log-container">
+			<input type="button" onclick="UO.system.kill()" value="kill"/><input type="button" onclick="UO.system.start()" value="start"/><input type="button" onclick="UO.net.sendPing()" value="ping"/><br />
+			<strong>Console & Packet Log<label><input type="checkbox" id="autoscroll" checked="true"/>Scroll</label></strong>
+			<div id="log"></div>
+		</div>
+	</div>	
+</body>
+</html>

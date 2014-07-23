@@ -1,17 +1,17 @@
 /*******************************************************************************
-Copyright (c) 2013, UOJS Team 
+Copyright (c) 2013, UOJS Team
                     web:   http://uojs.kevinevans.name/
                     email: uojs@kevinevans.name
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met: 
+modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer. 
+   list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution. 
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -51,7 +51,7 @@ var UO = {
     server:
     {
       shard:   0,
-      address: 'direct.kevinevans.name',
+      address: '127.0.0.1',
       port:    2593
     },
     forwarder:
@@ -60,7 +60,7 @@ var UO = {
       proxy:   document.domain,
 
       // the direct address
-      address: 'ws.kevinevans.name',
+      address: '127.0.0.1',
       port:    2580
     }
   },
@@ -231,7 +231,7 @@ UO.system = (function(){
 
 UO.net = (function() {
   var m_Socket, m_Decompression, m_PingStartTime = 0, m_LastLatency = 0, m_ServerHourDifference = 0;
-  
+
   return {
     EOF: -256,
     HuffmanTable: [[2,1],[4,3],[0,5],[7,6],[9,8],[11,10],[13,12],[14,-256],[16,15],[18,17],[20,19],[22,21],[23,-1],[25,24],[27,26],[29,28],[31,30],[33,32],[35,34],[37,36],[39,38],[-64,40],[42,41],[44,43],[45,-6],[47,46],[49,48],[51,50],[52,-119],[53,-32],[-14,54],[-5,55],[57,56],[59,58],[-2,60],[62,61],[64,63],[66,65],[68,67],[70,69],[72,71],[73,-51],[75,74],[77,76],[-111,-101],[-97,-4],[79,78],[80,-110],[-116,81],[83,82],[-255,84],[86,85],[88,87],[90,89],[-10,-15],[92,91],[93,-21],[94,-117],[96,95],[98,97],[100,99],[101,-114],[102,-105],[103,-26],[105,104],[107,106],[109,108],[111,110],[-3,112],[-7,113],[-131,114],[-144,115],[117,116],[118,-20],[120,119],[122,121],[124,123],[126,125],[128,127],[-100,129],[-8,130],[132,131],[134,133],[135,-120],[-31,136],[138,137],[-234,-109],[140,139],[142,141],[144,143],[145,-112],[146,-19],[148,147],[-66,149],[-145,150],[-65,-13],[152,151],[154,153],[155,-30],[157,156],[158,-99],[160,159],[162,161],[163,-23],[164,-29],[165,-11],[-115,166],[168,167],[170,169],[171,-16],[172,-34],[-132,173],[-108,174],[-22,175],[-9,176],[-84,177],[-37,-17],[178,-28],[180,179],[182,181],[184,183],[186,185],[-104,187],[-78,188],[-61,189],[-178,-79],[-134,-59],[-25,190],[-18,-83],[-57,191],[192,-67],[193,-98],[-68,-12],[195,194],[-128,-55],[-50,-24],[196,-70],[-33,-94],[-129,197],[198,-74],[199,-82],[-87,-56],[200,-44],[201,-248],[-81,-163],[-123,-52],[-113,202],[-41,-48],[-40,-122],[-90,203],[204,-54],[-192,-86],[206,205],[-130,207],[208,-53],[-45,-133],[210,209],[-91,211],[213,212],[-88,-106],[215,214],[217,216],[-49,218],[220,219],[222,221],[224,223],[226,225],[-102,227],[228,-160],[229,-46],[230,-127],[231,-103],[233,232],[234,-60],[-76,235],[-121,236],[-73,237],[238,-149],[-107,239],[240,-35],[-27,-71],[241,-69],[-77,-89],[-118,-62],[-85,-75],[-58,-72],[-80,-63],[-42,242],[-157,-150],[-236,-139],[-243,-126],[-214,-142],[-206,-138],[-146,-240],[-147,-204],[-201,-152],[-207,-227],[-209,-154],[-254,-153],[-156,-176],[-210,-165],[-185,-172],[-170,-195],[-211,-232],[-239,-219],[-177,-200],[-212,-175],[-143,-244],[-171,-246],[-221,-203],[-181,-202],[-250,-173],[-164,-184],[-218,-193],[-220,-199],[-249,-190],[-217,-230],[-216,-169],[-197,-191],[243,-47],[245,244],[247,246],[-159,-148],[249,248],[-93,-92],[-225,-96],[-95,-151],[251,250],[252,-241],[-36,-161],[254,253],[-39,-135],[-124,-187],[-251,255],[-238,-162],[-38,-242],[-125,-43],[-253,-215],[-208,-140],[-235,-137],[-237,-158],[-205,-136],[-141,-155],[-229,-228],[-168,-213],[-194,-224],[-226,-196],[-233,-183],[-167,-231],[-189,-174],[-166,-252],[-222,-198],[-179,-188],[-182,-223],[-186,-180],[-247,-245]],
@@ -312,13 +312,13 @@ UO.net = (function() {
       0xDC: ['SE Introduced Rev',          9],
       0xDD: ['Compressed Gump',           -1]
     },
-    
+
     /**
      * Gets the raw WebSocket
      * @return {WebSocket} The WebSocket being used
      */
     getSocket: function() { return m_Socket; },
-    
+
     /**
      * Creates, sets, and returns a new decompression structure.
      * @return {Object} Returns a structure to use for decompressing packets.
@@ -384,7 +384,7 @@ UO.net = (function() {
       m_PingStartTime = new Date().getTime();
       UO.net.sendBin(packet);
     },
-    
+
     /**
      * Measures the latency between the current time and the last ping.
      * @return {Number} Returns the total network latency to the game server.
@@ -392,7 +392,7 @@ UO.net = (function() {
     measurePing: function() {
       return m_LastLatency = ((new Date().getTime()) - m_PingStartTime);
     },
-    
+
     /**
      * Decompresses incomming data using the huffman tree
      * @param  {ArrayBuffer} source  A typed array or string of incomming data
@@ -423,8 +423,8 @@ UO.net = (function() {
           m_Decompression.treepos = UO.net.HuffmanTable[m_Decompression.treepos][(m_Decompression.value & m_Decompression.mask) ? 1 : 0];
         m_Decompression.mask >>= 1;
         m_Decompression.bit++;
-      
-        
+
+
         if(m_Decompression.treepos <= 0) {
           if(m_Decompression.treepos == UO.net.EOF || m_Decompression.estLength == m_Decompression.dest.index)
           {
@@ -436,7 +436,7 @@ UO.net = (function() {
             m_Decompression.estLength = -1;
             continue;
           }
-          
+
           if(i > source.length)
             break;
 
@@ -449,12 +449,12 @@ UO.net = (function() {
               if(m_Decompression.estLength != -1) {
                 m_Decompression.dest.resize(m_Decompression.estLength);
               }
-                
+
             }
             else
               m_Decompression.estLength = -1;
           }
-  
+
           if(m_Decompression.estLength == -1 && m_Decompression.dest.index == 3) {
             //console.log(m_Decompression);
             m_Decompression.estLength = m_Decompression.dest.getShort(1);
@@ -478,7 +478,7 @@ UO.net = (function() {
         }
       }
     },
-    
+
     /**
      * Receiving event callback function
      * @param  {Object} e WebSocket onMessage object
@@ -496,12 +496,12 @@ UO.net = (function() {
             UO.net.preHandler(UO.Packet.createFromArray(data));
         }
         break;
-        
+
         // "Log" packet
         case 'L': {
           data = String.fromCharCode.apply(String, data);
           data = data.split(' ');
-          
+
           switch(data[0]) {
             case 'Version': {
               m_Socket.connected = true;
@@ -571,24 +571,24 @@ UO.net = (function() {
         break;
       }
     },
-    
+
     onOpen: function(e) {
       UO.system.write('socket connected ({0}), requesting version', e.target ? e.target.url : 'n/a');
       m_Socket.connected = true;
       UO.net.sendBin('V {0}'.format(UO.system.version));
     },
-    
+
     onError: function(e) {
       UO.system.write('socket error ({0})', e.target ? e.target.url : 'n/a');
       UO.net.onClose(e);
     },
-    
+
     onClose: function(e) {
       if(m_Socket)
         m_Socket.connected = false;
       UO.system.write('socket closed');
     },
-    
+
     /*
      * Calls up the handling function based on the data provided
      * @argument packet
@@ -623,7 +623,7 @@ UO.net = (function() {
       0xA8: function(packet) {
         UO.system.write("logged in; at serverlist");
         var count = packet.getShort(4);
-        
+
         for(var i = 0; i < count; i++) {
           var pos = i*40 + 6,
             idx = packet.getShort(pos),
@@ -648,7 +648,7 @@ UO.net = (function() {
         var address = packet.getInt(1),
           port = packet.getShort(5),
           key = packet.getInt(7);
-        
+
         m_Socket.reconnecting = true;
         m_Socket.compressed = true;
 
@@ -688,7 +688,7 @@ UO.net = (function() {
 
           UO.system.write('city {0}: {1}, {2}', packet.getByte(pos), name, packet.getString(pos+31, 31));
         }
-        
+
         UO.system.write('choosing character (slot {0}, name: {1})', UO.login.slot, chars[UO.login.slot]);
 
         var login = new UO.Packet(73);
@@ -827,7 +827,7 @@ UO.net = (function() {
       },
 
       // Mobile move
-      0x77: function(packet) {  
+      0x77: function(packet) {
         var player = {
           serial: packet.getInt(1),
           body: packet.getShort(5),
@@ -903,7 +903,7 @@ UO.net = (function() {
       },
       // Weather
       0x65: function(packet) {
-      
+
       },
       // Character Animation
       0x6E: function(packet) {
@@ -959,7 +959,7 @@ UO.net = (function() {
           count = packet.getShort(i);
           i += 2;
         }
-        
+
         // what exactly is this?
         if(count & 0x8000) {
           i++;
@@ -983,7 +983,7 @@ UO.net = (function() {
         UO.ui.invalidate();
         //UO.system.write('object info (id {0}, g: {1})', id.toUnsigned().toHex(), g);
       },
-      
+
       // Update Health
       0xA1: function(packet) {
         var player = {
@@ -1248,7 +1248,7 @@ UO.game = (function(){
       //var halfRange = (UO.game.PlayerRange / 2) | 0;
 
       // I guess maybe we can loop through each spot but it seems unneeded
-      return m_Map[self.x][self.y]; 
+      return m_Map[self.x][self.y];
     },
     underRoof: function() {
       if(!m_Map)
@@ -1666,7 +1666,7 @@ UO.ui = (function() {
           m_RightClick = {};
           m_RightClick.x = e.pageX - offset.left - m_DrawOffset.x;
           m_RightClick.y = m_DrawOffset.y - e.pageY - offset.top;
-          
+
           m_RightClick.timer = setTimeout(UO.ui.handleRightClick, 100);
           UO.ui.handleRightClick();
         }
